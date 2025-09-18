@@ -37,9 +37,21 @@ function operate(operator, num1, num2) {
     }
 }
 
+function operateClick(selection) {
+    if (!num1) {
+                num1 = parseInt(reduceSelection(currentSelection));
+                currentSelection = [];
+                displayFigure.textContent = '';
+            } else if (num1) {
+                num2 = parseInt(reduceSelection(currentSelection));
+                operator = selection;
+                return operate(operator, num1, num2);
+            }
+}
+
 const displayFigure = document.querySelector('#displayFigure');
 const numPad = document.querySelector('#numbers');
-const operatorContainer = document.querySelector('#operators');
+const opPad = document.querySelector('#operators');
 
 const ONE = document.querySelector('#one');
 const TWO = document.querySelector('#two');
@@ -65,9 +77,9 @@ function reduceSelection(array) {
 
 }
 
-numPad.addEventListener('mousedown', (e) => {
+numPad.addEventListener('click', (e) => {
     const target = e.target;
-    if (currentSelection.length <= 10) {
+    if (currentSelection.length < 10) {
         switch (target.id) {
             case 'one':
                 currentSelection.push(1);
@@ -115,5 +127,26 @@ numPad.addEventListener('mousedown', (e) => {
                 displayFigure.textContent = 'ERR';
                 break;
         }
+    }
+});
+
+opPad.addEventListener('click', (e) => {
+    const target = e.target;
+    switch (target.id) {
+        case 'clear':
+            break;
+        case 'addition':
+            displayFigure.textContent = operateClick('+');
+            break;
+        case 'subtract':
+            break;
+        case 'multiply':
+            break;
+        case 'divide':
+            break;
+        case 'equals':
+            break;
+        default:
+            break;
     }
 });
