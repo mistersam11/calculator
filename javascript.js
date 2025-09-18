@@ -37,20 +37,6 @@ function operate(operator, num1, num2) {
     }
 }
 
-// Fix/finish this function next please, it is in use at line 141 but needs more something something
-
-function operateClick(selection) {
-    if (!num1) {
-                num1 = parseInt(reduceSelection(currentSelection));
-                currentSelection = [];
-                displayFigure.textContent = '';
-            } else if (num1) {
-                num2 = parseInt(reduceSelection(currentSelection));
-                operator = selection;
-                return operate(operator, num1, num2);
-            }
-}
-
 const displayFigure = document.querySelector('#displayFigure');
 const numPad = document.querySelector('#numbers');
 const opPad = document.querySelector('#operators');
@@ -136,19 +122,51 @@ opPad.addEventListener('click', (e) => {
     const target = e.target;
     switch (target.id) {
         case 'clear':
+            displayFigure.textContent = '';
+            currentSelection = [];
+            num1 = '';
+            num2 = '';
+            operator = '';
             break;
         case 'addition':
-            displayFigure.textContent = operateClick('+');
+            operateClick('+');
             break;
         case 'subtract':
+            operateClick('-');
             break;
         case 'multiply':
+            operateClick('*');
             break;
         case 'divide':
+            operateClick('/');
             break;
         case 'equals':
+            operateClick('=');
             break;
         default:
             break;
     }
 });
+
+function operateClick(selection) {
+    if (selection === '=' && !num1) {
+        return;
+    } else if (selection === '=') {
+        num2 = parseInt(reduceSelection(currentSelection));
+        displayFigure.textContent = operate(operator, num1, num2);
+    }
+
+    if (!num1) {
+        num1 = parseInt(reduceSelection(currentSelection));
+        currentSelection = [];
+        operator = selection;
+        return num1;
+    } else if (num1) {
+        num2 = parseInt(reduceSelection(currentSelection));
+        let temp = operate(operator, num1, num2);
+        num1 = temp;
+        num2 = '';
+        displayFigure.textContent = temp;
+        currentSelection = [];
+    }
+}
