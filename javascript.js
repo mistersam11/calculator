@@ -37,6 +37,8 @@ function operate(operator, num1, num2) {
     }
 }
 
+// Fix/finish this function next please, it is in use at line 141 but needs more something something
+
 function operateClick(selection) {
     if (!num1) {
                 num1 = parseInt(reduceSelection(currentSelection));
