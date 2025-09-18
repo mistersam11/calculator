@@ -93,7 +93,7 @@ padding-right: 90px;
     src: url("font/Digital7-rg1mL.ttf");
 }
 
-h1 {
+#displayFigure {
     font-weight: 400;
     color: black;
     font-size: 100px;
