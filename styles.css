@@ -76,6 +76,10 @@ padding-right: 90px;
     font-family:'Calculator', Arial, sans-serif;
 }
 
+.pad:hover {
+    background-color: black;
+}
+
 .ops {
     width: 115px;
     height: 115px;
@@ -86,6 +90,14 @@ padding-right: 90px;
     background-color: orange;
     color: black;
     font-family:'Calculator', Arial, sans-serif;
+}
+
+.ops:hover {
+    background-color: orangered;
+}
+
+#clear:hover {
+    background-color: white;
 }
 
 @font-face {
