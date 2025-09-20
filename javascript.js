@@ -14,11 +14,16 @@ function divideNumbers(a,b) {
     return a / b;
 }
 
-let operator = '';
+let operator;
 let num1;
 let num2;
 
+function roundToTen(number) {
+    return Number(number.toFixed(10));
+}
+
 function operate(operator, num1, num2) {
+    // divide by zero error message
     switch (operator) {
         case '+':
             return addNumbers(num1, num2);
@@ -60,12 +65,18 @@ const DIVIDE = document.querySelector('#divide');
 const EQUALS = document.querySelector('#equals');
 
 let currentSelection = [];
+//convert selection to a string
 function reduceSelection(array) {
     return array.join('');
-
 }
 
 numPad.addEventListener('click', (e) => {
+    // if there is a current result on the display but new number is pressed
+    if (num1 && !operator) {
+        displayFigure.textContent = '';
+        num1 = '';
+    }
+
     const target = e.target;
     if (currentSelection.length < 10) {
         switch (target.id) {
@@ -149,24 +160,63 @@ opPad.addEventListener('click', (e) => {
 });
 
 function operateClick(selection) {
-    if (selection === '=' && !num1) {
-        return;
-    } else if (selection === '=') {
-        num2 = parseInt(reduceSelection(currentSelection));
-        displayFigure.textContent = operate(operator, num1, num2);
-    }
+    switch (selection) {
+        case '+':
+        case '-':
+        case '*':
+        case '/':
+            // if no first number saved
+            if (!num1) {
+                num1 = parseInt(reduceSelection(currentSelection));
+                currentSelection = [];
+                operator = selection;
+            } // After EQUAL sign pressed so no operator is assigned
+            else if (num1 && !operator) {
+                operator = selection;
+            } // if no second number has been input, do nothing
+            else if (currentSelection.length === 0) {
+                return;
+            } else {
+                num2 = parseInt(reduceSelection(currentSelection));
+                // if trying to divide by zero
+                if (num2 === 0 && operator === '/') {
+                    displayFigure.textContent = 'Nice try';
+                    resetOperation('','');
+                    return;
+                } else {
+                let temp = operate(operator, num1, num2);
+                resetOperation(temp, selection);
+                }
+            }
+            break;
+        case '=':
+            // if no first number is saved, do nothing
+            if (!num1) {
+                return;
+            } // if no second number has been input, do nothing
+            else if (currentSelection.length === 0) {
+                return;
+            } // if a first number was saved and second number is present,
+              // save second number, operate on both, and reset so new number is num1
+            else {
+                num2 = parseInt(reduceSelection(currentSelection));
+                // if trying to divide by zero
+                if (num2 === 0 && operator === '/') {
+                    displayFigure.textContent = 'Nice try';
+                    resetOperation('','');
+                    return;
+                } else {
+                let temp = operate(operator, num1, num2);
+                resetOperation(temp, '');
+                }
+            }
+    }  
+}
 
-    if (!num1) {
-        num1 = parseInt(reduceSelection(currentSelection));
-        currentSelection = [];
-        operator = selection;
-        return num1;
-    } else if (num1) {
-        num2 = parseInt(reduceSelection(currentSelection));
-        let temp = operate(operator, num1, num2);
-        num1 = temp;
-        num2 = '';
-        displayFigure.textContent = temp;
-        currentSelection = [];
-    }
+function resetOperation(temp, op) {
+    num1 = temp;
+    num2 = '';
+    operator = op;
+    currentSelection = [];
+    displayFigure.textContent = roundToTen(temp);
 }

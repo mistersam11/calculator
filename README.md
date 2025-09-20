@@ -1,10 +1,4 @@
 # Calculator
 Final project for The Odin Project foundations course
 
-### HTML calculator structure
-- Div containing entire calculator
-    - Top div containing display
-    - Bottom div
-        - Div containing digits on left
-        - Div containing operators on right (including '=' and 'clear')
-
+This one was really hard. It took me three tries to get the logic for the calculator in place. I'm glad it did though, and that eventually I figured it out. It's probably not the neatest code or logic, but it sure does work most of the time.
