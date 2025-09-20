@@ -46,24 +46,6 @@ const displayFigure = document.querySelector('#displayFigure');
 const numPad = document.querySelector('#numbers');
 const opPad = document.querySelector('#operators');
 
-const ONE = document.querySelector('#one');
-const TWO = document.querySelector('#two');
-const THREE = document.querySelector('#three');
-const FOUR = document.querySelector('#four');
-const FIVE = document.querySelector('#five');
-const SIX = document.querySelector('#six');
-const SEVEN = document.querySelector('#seven');
-const EIGHT = document.querySelector('#eight');
-const NINE = document.querySelector('#nine');
-const ZERO = document.querySelector('#zero');
-
-const CLEAR = document.querySelector('#clear');
-const ADD = document.querySelector('#addition');
-const SUBTRACT = document.querySelector('#subtract');
-const MULTIPLY = document.querySelector('#multiply');
-const DIVIDE = document.querySelector('#divide');
-const EQUALS = document.querySelector('#equals');
-
 let currentSelection = [];
 //convert selection to a string
 function reduceSelection(array) {
